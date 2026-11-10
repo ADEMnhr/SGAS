@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: sgas-nehari
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.address 0.0.0.0 --server.port $PORT
+    envVars:
+      - key: SGAS_PASSWORD
+        sync: false
+      - key: SGAS_DB_PATH
+        value: /var/data/sgas_data.db
+    disk:
+      name: sgas-data
+      mountPath: /var/data
+      sizeGB: 1
